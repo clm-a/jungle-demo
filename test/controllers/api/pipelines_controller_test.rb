@@ -2,7 +2,7 @@ class Api::PipelinesControllerTest < ActionDispatch::IntegrationTest
   test "Should be able to change application statuses" do
     pipeline = pipelines(:stage_account_manager)
 
-    get api_pipeline_path(pipeline)
+    get api_pipeline_path(pipeline.slug)
 
     assert_response :success
     response_json = JSON.parse(response.body)
@@ -12,9 +12,9 @@ class Api::PipelinesControllerTest < ActionDispatch::IntegrationTest
     pipeline_application = pipeline.incoming_applications.first
     params = {pipeline: { to_meet_applications_ids: [ pipeline_application.id ]}}
 
-    patch api_pipeline_path(pipeline), params: params
+    patch api_pipeline_path(pipeline.slug), params: params
 
-    get api_pipeline_path(pipeline)
+    get api_pipeline_path(pipeline.slug)
 
     assert_response :success
     response_json = JSON.parse(response.body)
@@ -24,7 +24,7 @@ class Api::PipelinesControllerTest < ActionDispatch::IntegrationTest
     other_candidate = Candidate.create(display_name: 'Jean-Michel')
     other_candidate.apply_to_pipeline!(pipeline)
 
-    get api_pipeline_path(pipeline)
+    get api_pipeline_path(pipeline.slug)
 
     assert_response :success
     response_json = JSON.parse(response.body)

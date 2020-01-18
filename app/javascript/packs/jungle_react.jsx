@@ -4,23 +4,11 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-
-const Jungle = props => (
-  <div>Hello {props.name}!</div>
-)
-
-Jungle.defaultProps = {
-  name: 'David'
-}
-
-Jungle.propTypes = {
-  name: PropTypes.string
-}
+import Jungle from '../src/jungle'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Jungle name="React" />,
+    <Jungle />,
     document.body.appendChild(document.createElement('div')),
   )
 })
