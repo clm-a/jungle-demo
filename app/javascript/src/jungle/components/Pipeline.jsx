@@ -1,36 +1,28 @@
 
-import React from 'react';
-import PipelineApplication from './PipelineApplication'
+import React from 'react'
+import { DragDropContext } from 'react-beautiful-dnd'
+import PipelineApplicationsDragDropColumn from './PipelineApplicationsDragDropColumn'
 
 export default class Pipeline extends React.Component {
-
+  constructor(props){
+    super(props)
+  }
   render() {
-
-    const incomingApplications = []
-    for(let application of this.props.pipeline.incoming_applications){
-      incomingApplications.push(<li key={application.id}><PipelineApplication pipelineApplication={application} /></li>)
-    }    
-    const toMeetApplications = []
-    for(let application of this.props.pipeline.to_meet_applications){
-      toMeetApplications.push(<li key={application.id}><PipelineApplication pipelineApplication={application} /></li>)
-    }
-
-
     return (
       <div>
         <h1>{this.props.pipeline.name}</h1>
-        <div>
+        <DragDropContext onDragEnd={this.props.onItemChangeFromDragDrop}>
+          <div>
             <h2>À rencontrer</h2>
-            <ul>{ incomingApplications }</ul>
-
+            <PipelineApplicationsDragDropColumn columnKey="incoming_applications" pipelineApplications={this.props.pipeline['incoming_applications']}/>
           </div>
           <div>
             <h2>Entretien</h2>
-            <ul>{ toMeetApplications }</ul>
-
+            <PipelineApplicationsDragDropColumn columnKey="to_meet_applications" pipelineApplications={this.props.pipeline['to_meet_applications']}/>
           </div>
-      
-      
+        
+
+        </DragDropContext>      
       </div>
     )
   }
