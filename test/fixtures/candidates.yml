@@ -1,0 +1,6 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+steeve:
+  display_name: Steeve Jobs
+  bio: Producteur de pommes
+  avatar_url:
