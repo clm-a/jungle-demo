@@ -45,6 +45,22 @@ export default class Jungle extends React.Component {
     sourceList.splice( source.index, 1 )
     // add object to desired list & place
     destList.splice( destination.index, 0, object )
+    this.remoteUpdate()
+  }
+
+  remoteUpdate(){
+    let params = { pipeline: {
+        incoming_applications_ids: this.state.pipeline['incoming_applications'].map( application => application.id ),
+        to_meet_applications_ids: this.state.pipeline['to_meet_applications'].map( application => application.id )
+      }
+    }
+    fetch('/api/pipelines/stage-account-manager', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }).then( response => { if(!response.ok) alert('error') })
   }
 
   componentDidMount(){
