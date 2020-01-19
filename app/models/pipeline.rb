@@ -14,4 +14,11 @@ class Pipeline < ApplicationRecord
       pipeline_applications.where(id: id).update(status: :to_meet, priority: index)
     end
   end
+
+  def as_api_json
+    as_json(include: [incoming_applications: {include: :candidate}, to_meet_applications: {include: :candidate}] )
+  end
+  after_save do
+    PipelineChannel.broadcast_to self, message: "update", pipeline: self.as_api_json
+  end
 end

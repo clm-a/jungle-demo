@@ -15,6 +15,7 @@ services:
     ports:
      - "3000:3000"
     environment:
+      - REDIS_URL="redis://redis:6379/1"
       - DATABASE_URL=postgresql://postgres:password@postgres/jungledemo
       - TEST_DATABASE_URL=postgresql://postgres:password@postgres/jungledemotest
   webpacker:

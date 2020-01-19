@@ -1,8 +1,8 @@
 
 import React from 'react'
 import Pipeline from './components/Pipeline'
-import { checkPropTypes } from 'prop-types'
 
+import { createConsumer } from "@rails/actioncable"
 
 export default class Jungle extends React.Component {
 
@@ -14,9 +14,9 @@ export default class Jungle extends React.Component {
     this.state = {
       pipeline: null    
     }
-  
     this.onItemChangeFromDragDrop = this.onItemChangeFromDragDrop.bind(this)
     this.remoteUpdate = this.remoteUpdate.bind(this)
+
   }
 
   onItemChangeFromDragDrop(result){
@@ -64,9 +64,16 @@ export default class Jungle extends React.Component {
   }
 
   componentDidMount(){
-    fetch('/api/pipelines/stage-account-manager')
-      .then(response => response.json())
-      .then(data => { this.setState({ pipeline: data }) });
+
+    // Initialize cable remote update. Subscription fires update so we get initial data.
+    const cableMessageReceiveHandler = (data) => {
+      if(data.message == 'update'){
+        this.setState( { pipeline: data.pipeline})
+      }
+    }
+    createConsumer().subscriptions.create({ channel: "PipelineChannel", id: "stage-account-manager" }, {
+      received: cableMessageReceiveHandler
+    })
   }
 
   render() {
