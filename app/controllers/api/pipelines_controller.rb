@@ -1,5 +1,8 @@
 class Api::PipelinesController < Api::ApiController
-
+  def index
+    @pipelines = Pipeline.all
+    render json: @pipelines
+  end
   def show
     @pipeline = Pipeline.find_by(slug: params[:id])
     render json: @pipeline.as_api_json
