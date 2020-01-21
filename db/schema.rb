@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_18_165522) do
+ActiveRecord::Schema.define(version: 2020_01_21_153241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_01_18_165522) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "priority"
+    t.integer "priority", default: 0
     t.index ["candidate_id"], name: "index_pipeline_applications_on_candidate_id"
     t.index ["pipeline_id"], name: "index_pipeline_applications_on_pipeline_id"
     t.index ["status"], name: "index_pipeline_applications_on_status"

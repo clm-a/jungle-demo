@@ -16,6 +16,7 @@ export default class Jungle extends React.Component {
       pipelines: [],
       currentPipeline: null,
     }
+    this.columns = [{key: 'incoming_applications', label: 'À rencontrer'}, {key: 'to_meet_applications', label: 'Entretien'}]
     
     this.dataSync = new DataSync(this)
     
@@ -28,29 +29,29 @@ export default class Jungle extends React.Component {
   render() {    
     return (
       <Router>
-        <div>
+        <div className="bg-welcome-green">
           <Link to="/">Home</Link>
         </div>
-        <Switch  onChange={this.yourHandler}>
-          <Route onChange={this.yourHandler} exact path="/">
+        <Switch>
+          <Route exact path="/">
             <h2>Liste des Pipelines</h2>
             {this.state.pipelines.size == 0
-              ? 'Chargement en cours'
+              ? 'Chargement en cours...'
               : this.state.pipelines.map( pipeline => (
                 <Link key={`pipeline-${pipeline.id}`} to={`/pipelines/${pipeline.slug}`}>{pipeline.name}</Link>
               )
             )}
           </Route>
-          <Route path={'/pipelines/:slug'}>{
-            (routeProps) => {
+          <Route path={'/pipelines/:slug'}>
+            { (routeProps) => {
               return (
-                <Pipeline pipelineSlug={routeProps.match.params.slug} pipeline={this.state.currentPipeline} update={this.dataSync.update} fetch={this.dataSync.setupCable} />
+                <Pipeline columns={this.columns}
+                  pipelineSlug={routeProps.match.params.slug} pipeline={this.state.currentPipeline} update={this.dataSync.update} fetch={this.dataSync.setupCable} />
               )
-            }
-          }
-          
+            } }          
           </Route>
         </Switch>      
-      </Router>);
+      </Router>
+    )
   }
 }

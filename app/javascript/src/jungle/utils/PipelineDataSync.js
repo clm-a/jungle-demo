@@ -35,12 +35,11 @@ export class PipelineDataSync {
     const pipelineWas = this.component.state.currentPipeline
     this.component.setState({currentPipeline: pipeline})
 
-    const params = {
-      pipeline: {
-        incoming_applications_ids: pipeline['incoming_applications'].map( application => application.id),
-        to_meet_applications_ids: pipeline['to_meet_applications'].map( application => application.id)
-      }
-    }
+    const params = { pipeline: {} }
+    this.component.columns.forEach( column => {
+      params.pipeline[`${column.key}_ids`] = pipeline[column.key].map( application => application.id )
+    })
+
     fetch(`/api/pipelines/${pipeline.slug}`, {
       method: 'PATCH',
       headers: {

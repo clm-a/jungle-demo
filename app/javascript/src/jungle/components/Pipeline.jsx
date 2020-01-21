@@ -57,17 +57,22 @@ export default class Pipeline extends React.Component {
         ? 'Chargement en cours...'
         : (
           <div className="h-full flex flex-col">
-          <h1>{this.props.pipeline.name}</h1>
+          <h1 className="py-2 bg-welcome-dark-blue text-white font-extrabold">
+            {this.props.pipeline.name}
+          </h1>
           <DragDropContext onDragEnd={ this.onPipelineApplicationDragDrop }>
-            <div className="flex-1 flex flex-row flex-no-wrap w-full bg-gray-200">
-              <div className="m-4 p-2 w-64 bg-indigo-300 mr-4 p-2 flex flex-col">
-                <h2 className="uppercase font-extrabold">À rencontrer</h2>
-                <PipelineApplicationsDragDropColumn columnKey="incoming_applications" pipelineApplications={this.props.pipeline['incoming_applications']}/>
-              </div>
-              <div className="m-4 p-2 w-64 bg-indigo-300 flex flex-col">
-                <h2 className="uppercase font-extrabold">Entretien</h2>
-                <PipelineApplicationsDragDropColumn columnKey="to_meet_applications" pipelineApplications={this.props.pipeline['to_meet_applications']}/>
-              </div>  
+            <div className="flex-1 flex flex-row flex-no-wrap w-full bg-light-gray">
+              { this.props.columns.map( column => {
+                  return (
+                  <div key={`column-${column.key}`} className="flex flex-col bg-near-white rounded-sm border-2 border-gray-300 m-2" style={{width: '350px'}}>
+                    <h2 className="p-2 flex items-center uppercase font-extrabold border-b border-gray-300">{column.label}
+                      <span className="ml-2 rounded-full w-5 h-5 text-sm text-center text-gray-700 bg-gray-300"><span>{this.props.pipeline[column.key].length}</span></span>
+                    </h2>
+
+                      <PipelineApplicationsDragDropColumn columnKey={column.key} pipelineApplications={this.props.pipeline[column.key]}/>
+                  </div>
+                )})
+              }
             </div>
           </DragDropContext>      
           </div>

@@ -21,5 +21,11 @@ class PipelineChannelTest < ActionCable::Channel::TestCase
       pipeline.update(incoming_applications_ids: [])
     end
 
+    # test fire sync to connected client when a new candidate apply to pipeline
+    assert_broadcast_on(pipeline, message: "update", pipeline: pipeline.as_api_json) do
+      candidate = Candidate.create(display_name: 'Roger')
+      candidate.apply_to_pipeline!(pipeline)
+    end
+
   end
 end
