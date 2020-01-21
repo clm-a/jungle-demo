@@ -4,21 +4,25 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
+  Link
 } from "react-router-dom";
+import { PipelineDataSync as DataSync } from './utils/PipelineDataSync'
 import Pipeline from './components/Pipeline'
 
 export default class Jungle extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      pipelines: []
+      pipelines: [],
+      currentPipeline: null,
     }
+    
+    this.dataSync = new DataSync(this)
+    
   }
+
   componentDidMount(){
-    fetch('/api/pipelines')
-    .then(data => data.json())
-    .then(data => this.setState({pipelines: data}))
+    this.dataSync.fetchAll()
   }
 
   render() {    
@@ -27,8 +31,8 @@ export default class Jungle extends React.Component {
         <div>
           <Link to="/">Home</Link>
         </div>
-        <Switch>
-          <Route exact path="/">
+        <Switch  onChange={this.yourHandler}>
+          <Route onChange={this.yourHandler} exact path="/">
             <h2>Liste des Pipelines</h2>
             {this.state.pipelines.size == 0
               ? 'Chargement en cours'
@@ -37,7 +41,15 @@ export default class Jungle extends React.Component {
               )
             )}
           </Route>
-          <Route path={'/pipelines/:slug'} component={Pipeline} />
+          <Route path={'/pipelines/:slug'}>{
+            (routeProps) => {
+              return (
+                <Pipeline pipelineSlug={routeProps.match.params.slug} pipeline={this.state.currentPipeline} update={this.dataSync.update} fetch={this.dataSync.setupCable} />
+              )
+            }
+          }
+          
+          </Route>
         </Switch>      
       </Router>);
   }
