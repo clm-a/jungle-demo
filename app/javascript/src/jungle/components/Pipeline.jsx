@@ -52,21 +52,23 @@ export default class Pipeline extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={ {height: '100vh', maxHeight: '500px' } }>
         { ! this.props.pipeline
         ? 'Chargement en cours...'
         : (
-          <div>
+          <div className="h-full flex flex-col">
           <h1>{this.props.pipeline.name}</h1>
           <DragDropContext onDragEnd={ this.onPipelineApplicationDragDrop }>
-            <div>
-              <h2>À rencontrer</h2>
-              <PipelineApplicationsDragDropColumn columnKey="incoming_applications" pipelineApplications={this.props.pipeline['incoming_applications']}/>
+            <div className="flex-1 flex flex-row flex-no-wrap w-full bg-gray-200">
+              <div className="m-4 p-2 w-64 bg-indigo-300 mr-4 p-2 flex flex-col">
+                <h2 className="uppercase font-extrabold">À rencontrer</h2>
+                <PipelineApplicationsDragDropColumn columnKey="incoming_applications" pipelineApplications={this.props.pipeline['incoming_applications']}/>
+              </div>
+              <div className="m-4 p-2 w-64 bg-indigo-300 flex flex-col">
+                <h2 className="uppercase font-extrabold">Entretien</h2>
+                <PipelineApplicationsDragDropColumn columnKey="to_meet_applications" pipelineApplications={this.props.pipeline['to_meet_applications']}/>
+              </div>  
             </div>
-            <div>
-              <h2>Entretien</h2>
-              <PipelineApplicationsDragDropColumn columnKey="to_meet_applications" pipelineApplications={this.props.pipeline['to_meet_applications']}/>
-            </div>  
           </DragDropContext>      
           </div>
         )}

@@ -5,7 +5,12 @@ export default class PipelineApplication extends React.Component {
 
   render() {
     const candidate = this.props.pipelineApplication.candidate;
-    return <div><h3>{ candidate['display_name'] }</h3><p>{ candidate['bio'] }</p></div>
+    return (
+      <div className="p-2 bg-gray-100">
+        <h3>{ candidate['display_name'] }</h3>
+        <p className="mt-1 text-gray-600 leading-none">{ candidate['bio'] }</p>
+      </div>
+    )
   }
 }
 

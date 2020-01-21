@@ -5,6 +5,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Jungle from '../src/jungle'
+import '../src/jungle/styles.css'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
