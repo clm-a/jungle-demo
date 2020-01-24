@@ -10,6 +10,9 @@
 /.bundle
 /vendor/cache
 
+/spec/cypress/integration/examples
+/spec/cypress/integration/rails_examples
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal

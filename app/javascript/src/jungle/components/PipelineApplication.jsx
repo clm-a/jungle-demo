@@ -16,7 +16,7 @@ export default class PipelineApplication extends React.Component {
           <img className="h-16 w-16 rounded-full flex-shrink-0 mr-3" src={candidate['avatar_url'] || avatarPlaceholder } />
           <div className="mt-1 w-full">
             <div className="flex items-top">
-              <h3 className="font-bold">{ candidate['display_name'] }</h3>
+              <h3 className="font-bold" data-test-element="user_display_name">{ candidate['display_name'] }</h3>
               <i className="material-icons flex-1 text-right text-gray-600">notifications</i>
             </div>
             <p className="mt-1 text-gray-600">{ candidate['bio'] }</p>

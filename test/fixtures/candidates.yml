@@ -1,6 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-steeve:
-  display_name: Steeve Jobs
+steve:
+  display_name: Steve Jobs
   bio: Producteur de pommes
   avatar_url:
+
+clement:
+  display_name: Clément Alexandre
+  bio: Développeur
+  avatar_url:
+
+jean_michel:
+  display_name: Jean-Michel
+  bio:
+  avatar_url: https://i.pravatar.cc/64?img=63

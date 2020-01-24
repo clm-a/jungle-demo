@@ -67,7 +67,7 @@ export default class Pipeline extends React.Component {
                 <div className="overflow-x-auto w-full whitespace-no-wrap bg-light-gray mt-2 relative">
                   { this.props.columns.map( column => {
                       return (
-                      <div key={`column-${column.key}`} className="flex-col bg-near-white rounded-sm border-2 border-gray-300 m-2" style={{display: 'inline-flex', width: '350px'}}>
+                      <div key={`column-${column.key}`} data-test-element="pipeline_column" className="flex-col bg-near-white rounded-sm border-2 border-gray-300 m-2" style={{display: 'inline-flex', width: '350px'}}>
                         <h2 className="p-2 flex items-center uppercase font-extrabold border-b border-gray-300">
                           {column.label}
                           <span className="ml-2 rounded-full w-5 h-5 text-sm text-center text-gray-700 bg-gray-300">

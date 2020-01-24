@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Run app
+`docker-compose up`
 
-Things you may want to cover:
+RailsAdmin
+http://localhost:3000/admin
 
-* Ruby version
+Run test suite (models, API controller & actioncable )
+`docker-compose run --rm rails rails test`
 
-* System dependencies
+Run integration tests with Cypress
 
-* Configuration
+1) Start rails server in test env
+`docker-compose run --rm -p "3000:3000" rails rails s -e test -b 0.0.0.0`
+2) Start cypress within host
+`yarn cypress open --project ./spec`
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Demo : https://www.youtube.com/watch?v=gFbscUYXOzw

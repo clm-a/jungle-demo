@@ -15,7 +15,7 @@ export default class PipelineApplicationsDragDropColumn extends React.Component 
                 return (
                   <Draggable key={ identifier } draggableId={ identifier } index={ index }>
                     { provided => (
-                      <li ref={ provided.innerRef } {...provided.dragHandleProps} {...provided.draggableProps}
+                      <li data-test-element="pipeline_application" ref={ provided.innerRef } {...provided.dragHandleProps} {...provided.draggableProps}
                         className="mb-2" >
                         <PipelineApplication pipelineApplication={application}></PipelineApplication>
                       </li>
