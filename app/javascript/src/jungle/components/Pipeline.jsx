@@ -25,8 +25,9 @@ export default class Pipeline extends React.Component {
 
     // what pipeline application are we moving ?
     // the reference is created in the PipelineApplicationsDragDropColumn component
-    const allPipelineApplications = updatedPipeline['to_meet_applications'].concat(updatedPipeline['incoming_applications'])
-    // we search through pipeline applications with a reverse reference creation
+    
+    // we search through all pipeline applications
+    const allPipelineApplications = [].concat(...this.props.columns.map((column)=> updatedPipeline[column.key] ))
     const object = allPipelineApplications.filter( application => draggableId == `pipeline_application_${application.id}` )[0]
     if(!object)
       return // application not found in current pipeline
@@ -47,6 +48,7 @@ export default class Pipeline extends React.Component {
   }
 
   componentDidMount(){
+    // On composant mount, subscribe to cable and fetch pipeline based on slug (given by router)
     this.props.fetch(this.props.pipelineSlug)
   }
 
@@ -65,11 +67,13 @@ export default class Pipeline extends React.Component {
               { this.props.columns.map( column => {
                   return (
                   <div key={`column-${column.key}`} className="flex flex-col bg-near-white rounded-sm border-2 border-gray-300 m-2" style={{width: '350px'}}>
-                    <h2 className="p-2 flex items-center uppercase font-extrabold border-b border-gray-300">{column.label}
-                      <span className="ml-2 rounded-full w-5 h-5 text-sm text-center text-gray-700 bg-gray-300"><span>{this.props.pipeline[column.key].length}</span></span>
+                    <h2 className="p-2 flex items-center uppercase font-extrabold border-b border-gray-300">
+                      {column.label}
+                      <span className="ml-2 rounded-full w-5 h-5 text-sm text-center text-gray-700 bg-gray-300">
+                      <span>{this.props.pipeline[column.key].length}</span>
+                      </span>
                     </h2>
-
-                      <PipelineApplicationsDragDropColumn columnKey={column.key} pipelineApplications={this.props.pipeline[column.key]}/>
+                    <PipelineApplicationsDragDropColumn columnKey={column.key} pipelineApplications={this.props.pipeline[column.key]}/>
                   </div>
                 )})
               }

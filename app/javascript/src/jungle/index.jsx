@@ -1,4 +1,3 @@
-
 import React from 'react'
 import {
   BrowserRouter as Router,
@@ -16,7 +15,8 @@ export default class Jungle extends React.Component {
       pipelines: [],
       currentPipeline: null,
     }
-    this.columns = [{key: 'incoming_applications', label: 'À rencontrer'}, {key: 'to_meet_applications', label: 'Entretien'}]
+    this.columns = [{key: 'incoming_applications', label: 'À rencontrer'}, {key: 'to_meet_applications', label: 'Entretien'},
+                    {key: 'accepted_applications', label: 'Accepté'}, {key: 'rejected_applications', label: 'Refusé'}]
     
     this.dataSync = new DataSync(this)
     
