@@ -9,7 +9,7 @@ export default class PipelineApplicationsDragDropColumn extends React.Component 
       <Droppable droppableId={ this.props.columnKey }>
         { provided => (
           <ul ref={ provided.innerRef } {...provided.droppableProps}
-            className="h-full p-2 overflow-auto relative">
+            className="p-2" style={{minHeight: '500px'}}>
             { this.props.pipelineApplications.map( (application, index) => {
                 const identifier = `pipeline_application_${application.id.toString()}`
                 return (

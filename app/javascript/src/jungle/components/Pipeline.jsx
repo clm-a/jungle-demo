@@ -54,31 +54,32 @@ export default class Pipeline extends React.Component {
 
   render() {
     return (
-      <div style={ {height: '100vh', maxHeight: '500px' } }>
+      <div>
         { ! this.props.pipeline
         ? 'Chargement en cours...'
         : (
-          <div className="h-full flex flex-col">
-          <h1 className="py-2 bg-welcome-dark-blue text-white font-extrabold">
-            {this.props.pipeline.name}
-          </h1>
-          <DragDropContext onDragEnd={ this.onPipelineApplicationDragDrop }>
-            <div className="flex-1 flex flex-row flex-no-wrap w-full bg-light-gray">
-              { this.props.columns.map( column => {
-                  return (
-                  <div key={`column-${column.key}`} className="flex flex-col bg-near-white rounded-sm border-2 border-gray-300 m-2" style={{width: '350px'}}>
-                    <h2 className="p-2 flex items-center uppercase font-extrabold border-b border-gray-300">
-                      {column.label}
-                      <span className="ml-2 rounded-full w-5 h-5 text-sm text-center text-gray-700 bg-gray-300">
-                      <span>{this.props.pipeline[column.key].length}</span>
-                      </span>
-                    </h2>
-                    <PipelineApplicationsDragDropColumn columnKey={column.key} pipelineApplications={this.props.pipeline[column.key]}/>
-                  </div>
-                )})
-              }
-            </div>
-          </DragDropContext>      
+          <div className="flex flex-col">
+            <h1 className="py-2 px-2 bg-welcome-dark-blue text-white font-extrabold">
+              {this.props.pipeline.name}
+            </h1>
+            <DragDropContext onDragEnd={ this.onPipelineApplicationDragDrop }>
+              
+                <div className="overflow-x-auto w-full whitespace-no-wrap bg-light-gray mt-2 relative">
+                  { this.props.columns.map( column => {
+                      return (
+                      <div key={`column-${column.key}`} className="flex-col bg-near-white rounded-sm border-2 border-gray-300 m-2" style={{display: 'inline-flex', width: '350px'}}>
+                        <h2 className="p-2 flex items-center uppercase font-extrabold border-b border-gray-300">
+                          {column.label}
+                          <span className="ml-2 rounded-full w-5 h-5 text-sm text-center text-gray-700 bg-gray-300">
+                          <span>{this.props.pipeline[column.key].length}</span>
+                          </span>
+                        </h2>
+                        <PipelineApplicationsDragDropColumn columnKey={column.key} pipelineApplications={this.props.pipeline[column.key]}/>
+                      </div>
+                    )})
+                  }
+              </div>
+            </DragDropContext>      
           </div>
         )}
       </div>
